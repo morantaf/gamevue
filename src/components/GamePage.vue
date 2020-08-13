@@ -1,9 +1,6 @@
 <template>
   <div>
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <div class="hello">
-      <h1>{{ msg }}</h1>
-    </div>
+    <h1>{{ fullPageName }}</h1>
   </div>
 </template>
 
@@ -11,8 +8,13 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component
-export default class HelloWorld extends Vue {
-  msg = "Hello World !";
+export default class DetailPage extends Vue {
+  msg = "Page";
+  @Prop() page!: string;
+
+  get fullPageName() {
+    return this.page + " " + this.msg;
+  }
 }
 </script>
 

@@ -1,7 +1,9 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Homepage from "../components/Homepage.vue";
-import About from "../components/About.vue";
+import Homepage from "../views/Homepage.vue";
+import CategoriesPage from "../views/CategoriesPage.vue";
+import DetailPage from "../views/DetailPage.vue";
+import Randomizer from "../views/Randomizer.vue";
 
 Vue.use(VueRouter);
 
@@ -12,12 +14,19 @@ const routes: Array<RouteConfig> = [
     component: Homepage,
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: About,
+    path: "/categories/:categorie",
+    name: "Categories",
+    component: CategoriesPage,
+  },
+  {
+    path: "/game/:id",
+    name: "Gamepage",
+    component: DetailPage,
+  },
+  {
+    path: "/random/:id",
+    name: "Randomizer",
+    component: Randomizer,
   },
 ];
 
