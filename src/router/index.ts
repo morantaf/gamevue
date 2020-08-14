@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Homepage from "../views/Homepage.vue";
-import CategoriesPage from "../views/CategoriesPage.vue";
+import CategoryPage from "../views/CategoryPage.vue";
 import DetailPage from "../views/DetailPage.vue";
 import Randomizer from "../views/Randomizer.vue";
 
@@ -14,17 +14,19 @@ const routes: Array<RouteConfig> = [
     component: Homepage,
   },
   {
-    path: "/categories/:categorie",
-    name: "Categories",
-    component: CategoriesPage,
+    path: "/categories/:category",
+    name: "Category",
+    props: true,
+    component: CategoryPage,
   },
   {
     path: "/game/:id",
     name: "Gamepage",
+    props: true,
     component: DetailPage,
   },
   {
-    path: "/random/:id",
+    path: "/random",
     name: "Randomizer",
     component: Randomizer,
   },

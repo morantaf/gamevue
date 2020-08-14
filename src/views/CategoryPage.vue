@@ -1,18 +1,21 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <Feed page="Categories" />
+    <Feed page="category" v-bind:category="category" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import Feed from "@/components/Feed.vue";
 
 export default {
-  name: "Categories",
+  name: "category",
   components: {
     Feed,
+  },
+  data() {
+    return {
+      category: this.$route.params.category,
+    };
   },
 };
 </script>
