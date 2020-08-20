@@ -84,11 +84,30 @@ export default class GameCard extends Vue {
 
 <style>
 .game-card {
-  width: 20%;
+  width: 28%;
   margin: 2% 2% 2% 2%;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.25);
   border-radius: 5%;
   transition-duration: 0.5s;
+}
+
+@media screen and (max-width: 1612px) {
+  .game-card {
+    width: 29%;
+  }
+}
+
+@media screen and (max-width: 1310px) {
+  .game-card {
+    width: 46%;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .game-card {
+    width: 100%;
+    margin-bottom: 30px;
+  }
 }
 
 .game-card:hover {
@@ -131,7 +150,7 @@ img {
   border-radius: 10%;
 }
 
-a {
+.game-card a {
   text-decoration: none;
   color: inherit;
 }
