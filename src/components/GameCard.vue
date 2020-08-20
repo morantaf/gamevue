@@ -1,12 +1,10 @@
 <template>
   <div class="game-card">
-    <div class="card-header" :style="{ backgroundImage: `url(${image})` }">
-      <div class="card-header-content"></div>
-    </div>
+    <div
+      class="card-header"
+      :style="{ backgroundImage: `url(${image})` }"
+    ></div>
     <div class="card-content">
-      <router-link tag="h1" :to="`/game/${id}`">
-        <a>{{ name }}</a>
-      </router-link>
       <div class="meta-content">
         <div class="rating"><i class="fas fa-star"></i>{{ rating }}</div>
         <div class="platforms">
@@ -18,6 +16,9 @@
           ></div>
         </div>
       </div>
+      <router-link tag="h1" :to="`/game/${id}`">
+        <a>{{ name }}</a>
+      </router-link>
     </div>
   </div>
 </template>
@@ -45,37 +46,37 @@ export default class GameCard extends Vue {
 
   get platformsList() {
     return this.platforms.map((platform) => {
-      let logo;
+      let icon;
       switch (platform.platform.name) {
         case "PlayStation":
-          logo = `<i class="fab fa-playstation"></i>`;
+          icon = `<i class="fab fa-playstation"></i>`;
           break;
         case "PC":
-          logo = `<i class="fab fa-windows"></i>`;
+          icon = `<i class="fab fa-windows"></i>`;
           break;
         case "Xbox":
-          logo = `<i class="fab fa-xbox"></i>`;
+          icon = `<i class="fab fa-xbox"></i>`;
           break;
         case "Linux":
-          logo = `<i class="fab fa-linux"></i>`;
+          icon = `<i class="fab fa-linux"></i>`;
           break;
         case "Nintendo":
-          logo = `<i class="fab fa-neos"></i>`;
+          icon = `<i class="fab fa-neos"></i>`;
           break;
         case "Android":
-          logo = `<i class="fab fa-android"></i>`;
+          icon = `<i class="fab fa-android"></i>`;
           break;
         case "Apple Macintosh":
-          logo = `<i class="fab fa-apple"></i>`;
+          icon = `<i class="fab fa-apple"></i>`;
           break;
         case "iOS":
-          logo = `<i class="fab fa-app-store-ios"></i>`;
+          icon = `<i class="fab fa-app-store-ios"></i>`;
           break;
         default:
-          logo = platform.platform.name;
+          icon = platform.platform.name;
           break;
       }
-      return logo;
+      return icon;
     });
   }
 }
@@ -83,30 +84,22 @@ export default class GameCard extends Vue {
 
 <style>
 .game-card {
-  width: 28%;
+  width: 20%;
   margin: 2% 2% 2% 2%;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.25);
   border-radius: 5%;
+  transition-duration: 0.5s;
+}
+
+.game-card:hover {
+  transform: translate3d(0, -10px, 0);
 }
 
 .card-header {
   height: 300px;
-  position: relative;
-  background-color: #33334d;
-  color: white;
   background-size: cover;
-  text-align: center;
   background-position: center;
   border-radius: 5% 5% 0 0;
-}
-
-.card-header-content {
-  content: "";
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  position: absolute;
 }
 
 img {
@@ -114,13 +107,21 @@ img {
   border-radius: 5% 5% 0 0;
 }
 
-h1 {
+.card-content h1 {
   padding: 2%;
+  transition-duration: 0.5s;
+}
+
+.card-content h1:hover {
+  color: #fff;
+  text-shadow: #4d4d4d 1px 1px, #4d4d4d -1px 1px, #4d4d4d -1px -1px,
+    #4d4d4d 1px -1px;
 }
 
 .meta-content {
   display: flex;
   justify-content: space-around;
+  margin: 15px auto;
 }
 
 .rating {
