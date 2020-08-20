@@ -1,21 +1,26 @@
 <template>
-  <div class="home">
-    <Feed page="category" v-bind:category="category" />
+  <div class="category">
+    <GamesList
+      page="category"
+      v-bind:category="$route.params.category"
+      v-bind:key="$route.params.category"
+    />
   </div>
 </template>
 
 <script>
-import Feed from "@/components/Feed.vue";
+import GamesList from "@/components/GamesList.vue";
 
 export default {
   name: "category",
   components: {
-    Feed,
-  },
-  data() {
-    return {
-      category: this.$route.params.category,
-    };
+    GamesList,
   },
 };
 </script>
+
+<style>
+.category {
+  margin-top: 90px;
+}
+</style>
