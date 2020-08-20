@@ -1,17 +1,22 @@
 <template>
   <div class="home">
-    <Feed page="Homepage" />
+    <GamesList :home="home" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Feed from "@/components/Feed.vue";
+import GamesList from "@/components/GamesList.vue";
 
 export default {
-  name: "Home",
+  name: "home",
   components: {
-    Feed,
+    GamesList,
+  },
+  data() {
+    return {
+      home: true,
+    };
   },
 };
 </script>

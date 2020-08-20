@@ -3,7 +3,7 @@
     <GamesList
       page="category"
       v-bind:category="$route.params.category"
-      v-bind:key="$route.params.category"
+      v-bind:key="$route.params.cat"
     />
   </div>
 </template>

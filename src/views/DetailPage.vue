@@ -1,17 +1,28 @@
 <template>
-  <div class="about">
-    <GamePage page="Specific game" />
+  <div class="game-details">
+    <GameDetails :gameId="gameId" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import GamePage from "@/components/GamePage.vue";
+import GameDetails from "@/components/GameDetails.vue";
 
 export default {
-  name: "Home",
+  name: "detail-page",
   components: {
-    GamePage,
+    GameDetails,
+  },
+  data() {
+    return {
+      gameId: this.$route.params.id,
+    };
   },
 };
 </script>
+
+<style>
+.game-details {
+  margin-top: 80px;
+}
+</style>

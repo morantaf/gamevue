@@ -1,17 +1,28 @@
 <template>
-  <div class="about">
-    <GamePage page="Random game" />
+  <div class="randomizer">
+    <GameDetails :random="random" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import GamePage from "@/components/GamePage.vue";
+import GameDetails from "@/components/GameDetails.vue";
 
 export default {
-  name: "Home",
+  name: "randomizer",
   components: {
-    GamePage,
+    GameDetails,
+  },
+  data() {
+    return {
+      random: true,
+    };
   },
 };
 </script>
+
+<style>
+.randomizer {
+  margin-top: 90px;
+}
+</style>
