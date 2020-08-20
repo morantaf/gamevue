@@ -32,7 +32,9 @@
     </div>
     <div class="meta-block">
       <div class="block-title"><b>Website</b></div>
-      <div class="block-content">{{ website }}</div>
+      <div class="block-content">
+        <a :href="website">{{ website }}</a>
+      </div>
     </div>
   </div>
 </template>
@@ -75,5 +77,9 @@ export default class GameMeta extends Vue {
 .block-content li {
   list-style-type: none;
   margin-right: 5px;
+}
+
+.block-content a {
+  color: inherit;
 }
 </style>
