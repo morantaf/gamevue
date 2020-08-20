@@ -187,5 +187,6 @@ export default class GamesList extends Vue {
 .games-list {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 90px;
 }
 </style>
