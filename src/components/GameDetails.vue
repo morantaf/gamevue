@@ -72,6 +72,7 @@ export default class GameDetails extends Vue {
     developers: [],
     backgroundImage: "",
     clip: null,
+    website: "",
   };
 
   get platforms(): string[] {
@@ -113,6 +114,7 @@ export default class GameDetails extends Vue {
           genres,
           developers,
           clip,
+          website,
         } = response.body;
 
         const backgroundImage = response.body.background_image;
@@ -125,6 +127,7 @@ export default class GameDetails extends Vue {
           developers,
           backgroundImage,
           clip,
+          website,
         };
         this.loading = false;
         console.log("displayedGame ?", this.displayedGame);
@@ -146,6 +149,7 @@ export default class GameDetails extends Vue {
           genres,
           developers,
           clip,
+          website,
         } = response.body;
 
         const backgroundImage = response.body.background_image;
@@ -158,6 +162,7 @@ export default class GameDetails extends Vue {
           developers,
           backgroundImage,
           clip,
+          website,
         };
         this.loading = false;
         console.log("displayedGame ?", this.displayedGame);
@@ -201,6 +206,17 @@ export default class GameDetails extends Vue {
   flex-direction: column;
 }
 
+@media screen and (max-width: 1024px) {
+  .columns {
+    flex-direction: column;
+  }
+
+  .column-2 {
+    margin-left: initial;
+    margin-top: 50px;
+  }
+}
+
 .game-description {
   box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.13);
   flex: 1;
@@ -228,5 +244,9 @@ export default class GameDetails extends Vue {
 .block-content li {
   list-style-type: none;
   margin-right: 5px;
+}
+
+.recommandations h2 {
+  margin: 90px 0 0 0;
 }
 </style>
