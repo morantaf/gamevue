@@ -1,14 +1,9 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-// import { library } from "@fortawesome/fontawesome-svg-core";
-// import { faStar } from "@fortawesome/free-solid-svg-icons";
-// import { faPlaystation } from "@fortawesome/free-brands-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import VueYouTubeEmbed from "vue-youtube-embed";
 
-// library.add(faStar, faPlaystation);
-
-// Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.use(VueYouTubeEmbed);
 
 Vue.config.productionTip = false;
 
