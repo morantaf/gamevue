@@ -1,8 +1,12 @@
 <template>
-  <nav id="nav">
-    <router-link to="/">Home</router-link> |
-    <Dropdown v-bind:title="'Categories'" v-bind:items="listOfCategories" />|
-    <router-link to="/random">Random</router-link>
+  <nav>
+    <div class="menu-item">
+      <router-link to="/">Home</router-link>
+    </div>
+    <Dropdown v-bind:title="'Categories'" v-bind:items="listOfCategories" />
+    <div class="menu-item">
+      <router-link to="/random">Random</router-link>
+    </div>
   </nav>
 </template>
 
@@ -35,44 +39,31 @@ export default class Navbar extends Vue {
       slug: "shooter",
     },
   ];
-
-  // async fetchCategories() {
-  //   try {
-  //     const response = await request
-  //       .get(`https://rawg-video-games-database.p.rapidapi.com/genres`)
-  //       .set("x-rapidapi-host", "rawg-video-games-database.p.rapidapi.com")
-  //       .set(
-  //         "x-rapidapi-key",
-  //         "58fc62e76dmsh80ce19cd8cbea27p16bd17jsnbbc7c11d51dc"
-  //       );
-
-  //     this.listOfCategories = response.body.results.map((category: any) => ({
-  //       title: category.name,
-  //       slug: category.slug,
-  //     }));
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
-
-  // mounted() {
-  //   this.fetchCategories();
-  // }
 }
 </script>
 
 <style scoped lang="scss">
-#nav {
+nav {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #fff;
+  background-color: #626d84;
   border-bottom: 1px solid #dae4eb;
   display: flex;
   justify-content: center;
+  height: 70px;
+  align-items: center;
 }
 
-a {
-  color: #42b983;
+.menu-item a {
+  text-decoration: none;
+  padding: 20px;
+  color: inherit;
+  font-weight: bold;
+  transition-duration: 0.5s;
+}
+
+.menu-item a:hover {
+  background-color: #414958;
 }
 </style>
