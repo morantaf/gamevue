@@ -1,6 +1,8 @@
 <template>
   <div class="game-details">
-    <GameDetails :gameId="$route.params.id" :key="$route.params.id" />
+    <transition name="fade" mode="out-in">
+      <GameDetails :gameId="$route.params.id" :key="$route.params.id" />
+    </transition>
   </div>
 </template>
 
@@ -24,5 +26,15 @@ export default {
 <style>
 .game-details {
   margin-top: 80px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

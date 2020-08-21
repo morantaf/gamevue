@@ -1,10 +1,12 @@
 <template>
   <div class="randomizer">
-    <GameDetails
-      :random="random"
-      :key="componentKey"
-      v-on:update-key="changeComponentKey"
-    />
+    <transition name="fade" mode="out-in">
+      <GameDetails
+        :random="random"
+        :key="componentKey"
+        v-on:update-key="changeComponentKey"
+      />
+    </transition>
   </div>
 </template>
 
@@ -34,5 +36,15 @@ export default {
 <style>
 .randomizer {
   margin-top: 90px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
