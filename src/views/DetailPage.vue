@@ -1,6 +1,6 @@
 <template>
   <div class="game-details">
-    <GameDetails :gameId="gameId" />
+    <GameDetails :gameId="$route.params.id" :key="$route.params.id" />
   </div>
 </template>
 
