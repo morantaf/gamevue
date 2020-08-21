@@ -1,6 +1,10 @@
 <template>
   <div class="randomizer">
-    <GameDetails :random="random" />
+    <GameDetails
+      :random="random"
+      :key="componentKey"
+      v-on:update-key="changeComponentKey"
+    />
   </div>
 </template>
 
@@ -16,7 +20,13 @@ export default {
   data() {
     return {
       random: true,
+      componentKey: 0,
     };
+  },
+  methods: {
+    changeComponentKey() {
+      this.componentKey++;
+    },
   },
 };
 </script>
