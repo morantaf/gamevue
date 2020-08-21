@@ -17,7 +17,7 @@
         </div>
       </div>
       <router-link tag="h1" :to="`/game/${id}`">
-        <a>{{ name }}</a>
+        {{ name }}
       </router-link>
     </div>
   </div>
@@ -84,17 +84,12 @@ export default class GameCard extends Vue {
 
 <style>
 .game-card {
-  width: 28%;
+  width: 29%;
   margin: 2% 2% 2% 2%;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.25);
   border-radius: 5%;
   transition-duration: 0.5s;
-}
-
-@media screen and (max-width: 1612px) {
-  .game-card {
-    width: 29%;
-  }
+  background-color: #576175;
 }
 
 @media screen and (max-width: 1310px) {
@@ -129,12 +124,11 @@ img {
 .card-content h1 {
   padding: 2%;
   transition-duration: 0.5s;
+  cursor: pointer;
 }
 
 .card-content h1:hover {
-  color: #fff;
-  text-shadow: #4d4d4d 1px 1px, #4d4d4d -1px 1px, #4d4d4d -1px -1px,
-    #4d4d4d 1px -1px;
+  color: #ffcc66;
 }
 
 .meta-content {
@@ -144,8 +138,6 @@ img {
 }
 
 .rating {
-  color: #fff;
-  background-color: #404040;
   padding: 2px;
   border-radius: 10%;
 }
@@ -156,8 +148,6 @@ img {
 }
 
 .platforms {
-  color: #fff;
-  background-color: #404040;
   padding: 3px;
   border-radius: 5%;
 }
