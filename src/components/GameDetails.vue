@@ -15,6 +15,7 @@
     ></div>
     <h1>
       {{ displayedGame.name }}
+      <i v-if="random" class="fas fa-sync" @click="changeComponentKey"></i>
     </h1>
     <div class="columns">
       <div class="game-description">
@@ -38,7 +39,7 @@
     </div>
     <div class="recommandations">
       <h2>Similar to {{ displayedGame.name }}</h2>
-      <GamesList
+      <RecommandationsList
         v-bind:displayedGameGenres="genres"
         v-bind:displayedGameName="displayedGame.name"
       />
@@ -47,20 +48,25 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Emit } from "vue-property-decorator";
 import request from "superagent";
 import GameMeta from "./GameMeta.vue";
-import GamesList from "./GamesList.vue";
+import RecommandationsList from "./RecommandationsList.vue";
 
 @Component({
   components: {
     GameMeta,
-    GamesList,
+    RecommandationsList,
   },
 })
 export default class GameDetails extends Vue {
   @Prop() gameId!: number;
   @Prop() random!: boolean;
+
+  @Emit("update-key")
+  changeComponentKey() {
+    return null;
+  }
 
   loading = false;
   error = null;
@@ -218,13 +224,17 @@ export default class GameDetails extends Vue {
 }
 
 .game-description {
-  box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.13);
   flex: 1;
   padding: 10px;
 }
 
+.game-description h3 {
+  font-size: 1.6em;
+}
+
 .game-description p {
-  text-align: left;
+  font-size: 1.2em;
+  text-align: justify;
 }
 
 .meta-block {
@@ -248,5 +258,6 @@ export default class GameDetails extends Vue {
 
 .recommandations h2 {
   margin: 90px 0 0 0;
+  font-size: 2em;
 }
 </style>
