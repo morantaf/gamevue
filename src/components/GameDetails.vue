@@ -82,18 +82,18 @@ export default class GameDetails extends Vue {
   };
 
   get platforms(): string[] {
-    return this.displayedGame.platforms.map(
-      (platform: any) => platform.platform.name
-    );
+    return this.displayedGame.platforms
+      .slice(0)
+      .map((platform: any) => platform.platform.name);
   }
 
   get genres(): string[] {
-    return this.displayedGame.genres.map((genre: any) => genre.name);
+    return this.displayedGame.genres.slice(0).map((genre: any) => genre.name);
   }
   get developers(): string[] {
-    return this.displayedGame.developers.map(
-      (developer: any) => developer.name
-    );
+    return this.displayedGame.developers
+      .slice(0)
+      .map((developer: any) => developer.name);
   }
 
   async fetchGames() {
