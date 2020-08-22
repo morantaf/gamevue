@@ -42,11 +42,6 @@ export default class Dropdown extends Vue {
 </script>
 
 <style>
-nav .menu-item svg {
-  width: 10px;
-  margin-left: 10px;
-}
-
 .menu-item a {
   text-decoration: none;
   padding: 20px;
@@ -73,7 +68,7 @@ nav .sub-menu {
   position: absolute;
   background-color: #414958;
   left: 50%;
-  top: calc(80%);
+  top: 80%;
   transform: translateX(-59%);
   width: max-content;
 }
