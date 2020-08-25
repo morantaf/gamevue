@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="banner">
-      <h1>Welcome to gamezone</h1>
+      <h1>Welcome to GameZone</h1>
       <h3>The best video game ressources of the internet</h3>
     </div>
     <GamesList :home="home" />
