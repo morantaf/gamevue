@@ -5,7 +5,7 @@
         <h3>Sitemap</h3>
         <ul>
           <li v-for="(route, index) in routerList" v-bind:key="index">
-            {{ route.name }}
+            <router-link :to="route.path">{{ route.name }}</router-link>
           </li>
         </ul>
       </div>
@@ -37,12 +37,18 @@ export default class Footer extends Vue {
     routes: RouteConfig[] | undefined,
     pre: string
   ): RouteConfig[] | undefined {
-    console.log(routes);
-    return routes.map((route: RouteConfig) => {
-      const path = `${pre}${route.path}`;
-      const name = route.name;
-      return { path, name };
-    }, []);
+    if (routes) {
+      return routes.reduce((accumulator: RouteConfig[], route: RouteConfig) => {
+        const splitRoute = route.path.split("/");
+        const isDynamic = splitRoute[splitRoute.length - 1][0] === ":";
+        console.log(route);
+        if (!isDynamic) {
+          return [...accumulator, { path: route.path, name: route.name }];
+        } else {
+          return accumulator;
+        }
+      }, []);
+    }
   }
 
   mounted() {
@@ -50,6 +56,7 @@ export default class Footer extends Vue {
       this.$router.options.routes,
       "https://localhost:8080"
     );
+    console.log(this.routerList);
   }
 }
 </script>
@@ -90,6 +97,10 @@ export default class Footer extends Vue {
   text-align: left;
   list-style: none;
   margin-bottom: 5px;
+}
+
+.footer a {
+  color: #fff;
 }
 
 .footer-icon {
