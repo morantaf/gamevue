@@ -8,17 +8,6 @@
       {{ error }}
     </div>
 
-    <!-- <div class="games-list" v-if="home">
-    <GameCard
-      v-for="game in reducedGamesList"
-      :key="game.id"
-      v-bind:id="game.id"
-      v-bind:name="game.name"
-      v-bind:image="game.backgroundImage"
-      v-bind:platforms="game.platforms"
-      v-bind:rating="game.rating"
-    ></GameCard>
-  </div> -->
     <h1 v-if="category">{{ categoryTitle }}</h1>
 
     <div
@@ -109,17 +98,6 @@ export default class GamesList extends Vue {
         : category.charAt(0).toUpperCase() + category.slice(1);
     return capitalStr;
   }
-
-  // get reducedGamesList(): Game[] {
-  //   const copy = this.gamesList.slice(0);
-  //   const maxIndex = copy.length - 11;
-  //   const minIndex = 1;
-  //   const randomStartIndex = Math.floor(
-  //     Math.random() * (maxIndex - minIndex) + minIndex
-  //   );
-  //   const endIndex = randomStartIndex + 10;
-  //   return copy.slice(randomStartIndex, endIndex);
-  // }
 
   sortLowestRating() {
     this.gamesList.sort((a: Game, b: Game) => a.rating - b.rating);
