@@ -10,24 +10,26 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    name: "home",
+    name: "Home",
+    props: true,
     component: Homepage,
   },
   {
     path: "/categories/:category",
-    name: "category",
+    name: "Category",
     props: true,
     component: CategoryPage,
   },
   {
     path: "/game/:id",
-    name: "detail-page",
+    name: "Detail-page",
     props: true,
     component: DetailPage,
   },
   {
     path: "/random",
-    name: "randomizer",
+    name: "Randomizer",
+    props: true,
     component: Randomizer,
   },
 ];
