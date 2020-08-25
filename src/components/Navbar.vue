@@ -53,6 +53,7 @@ nav {
   justify-content: center;
   height: 70px;
   align-items: center;
+  z-index: 1;
 }
 
 .menu-item a {
