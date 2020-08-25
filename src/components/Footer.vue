@@ -33,10 +33,7 @@ import { RouteConfig } from "vue-router";
 export default class Footer extends Vue {
   routerList: RouteConfig[] | undefined = [];
 
-  getRoutesList(
-    routes: RouteConfig[] | undefined,
-    pre: string
-  ): RouteConfig[] | undefined {
+  getRoutesList(routes: RouteConfig[] | undefined): RouteConfig[] | undefined {
     if (routes) {
       return routes.reduce((accumulator: RouteConfig[], route: RouteConfig) => {
         const splitRoute = route.path.split("/");
@@ -52,10 +49,7 @@ export default class Footer extends Vue {
   }
 
   mounted() {
-    this.routerList = this.getRoutesList(
-      this.$router.options.routes,
-      "https://localhost:8080"
-    );
+    this.routerList = this.getRoutesList(this.$router.options.routes);
   }
 }
 </script>
