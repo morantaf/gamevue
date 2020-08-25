@@ -15,19 +15,10 @@ export default {
   components: {
     GameDetails,
   },
-  data() {
-    return {
-      gameId: this.$route.params.id,
-    };
-  },
 };
 </script>
 
 <style>
-.game-details {
-  margin-top: 80px;
-}
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 1s;
