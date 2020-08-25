@@ -1,5 +1,5 @@
 <template>
-  <div class="randomizer">
+  <div>
     <transition name="fade" mode="out-in">
       <GameDetails
         :random="random"
@@ -34,10 +34,6 @@ export default {
 </script>
 
 <style>
-.randomizer {
-  margin-top: 90px;
-}
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 1s;
