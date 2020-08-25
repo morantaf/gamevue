@@ -7,7 +7,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import GameDetails from "@/components/GameDetails.vue";
 
 export default {
