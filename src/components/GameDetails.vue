@@ -69,6 +69,10 @@ type Game = {
   metacritic: number;
 };
 
+type ParentPlatform = {
+  platform: Platform;
+};
+
 type Platform = {
   id: number;
   name: string;
@@ -121,18 +125,18 @@ export default class GameDetails extends Vue {
   };
 
   get platforms(): string[] {
-    return this.displayedGame.platforms
-      .slice(0)
-      .map((platform: any) => platform.platform.name);
+    return this.displayedGame.platforms.slice(0).map((platform: Platform) => {
+      return platform.name;
+    });
   }
 
   get genres(): string[] {
-    return this.displayedGame.genres.slice(0).map((genre: any) => genre.name);
+    return this.displayedGame.genres.slice(0).map((genre: Genre) => genre.name);
   }
   get developers(): string[] {
     return this.displayedGame.developers
       .slice(0)
-      .map((developer: any) => developer.name);
+      .map((developer: Developer) => developer.name);
   }
 
   async fetchGame(): Promise<Game | undefined> {
@@ -160,13 +164,15 @@ export default class GameDetails extends Vue {
       const {
         description,
         name,
-        platforms,
         genres,
         developers,
         website,
         metacritic,
       } = response.body;
 
+      const platforms = response.body.parent_platforms.map(
+        (parentPlaform: ParentPlatform) => parentPlaform.platform
+      );
       const backgroundImage = response.body.background_image;
       const video = response.body.clip ? response.body.clip.video : null;
 
