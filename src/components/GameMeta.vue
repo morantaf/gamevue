@@ -26,9 +26,11 @@
         </ul>
       </div>
     </div>
-    <div class="meta-block">
-      <div class="block-title"><b>Ratings</b></div>
-      <div class="block-content"></div>
+    <div class="meta-block" v-if="metacritic">
+      <div class="block-title"><b>Metacritic</b></div>
+      <div class="block-content" v-bind:style="metacriticStyle">
+        {{ metacritic }}
+      </div>
     </div>
     <div class="meta-block">
       <div class="block-title"><b>Website</b></div>
@@ -47,7 +49,42 @@ export default class GameMeta extends Vue {
   @Prop() platforms!: string[];
   @Prop() genres!: string[];
   @Prop() developers!: string[];
+  @Prop() metacritic!: number;
   @Prop() website!: string;
+
+  get metacriticStyle() {
+    if (this.metacritic > 80) {
+      return {
+        border: "solid 1px",
+        "border-radius": "5px",
+        "font-weight": "bold",
+        "margin-top": "12px",
+        color: "#00ff00",
+        width: "20px",
+        padding: "4px",
+      };
+    } else if (this.metacritic > 60 && this.metacritic < 80) {
+      return {
+        border: "solid 1px",
+        "border-radius": "5px",
+        "font-weight": "bold",
+        "margin-top": "12px",
+        color: "#ff9900",
+        width: "20px",
+        padding: "4px",
+      };
+    } else {
+      return {
+        border: "solid 1px",
+        "border-radius": "5px",
+        "font-weight": "bold",
+        "margin-top": "12px",
+        color: "#ff3300",
+        width: "20px",
+        padding: "4px",
+      };
+    }
+  }
 }
 </script>
 
