@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="game-details">
     <div v-if="loading" class="loading">
       Loading...
     </div>
@@ -12,6 +12,7 @@
       :style="{
         backgroundImage: `url(${this.displayedGame.backgroundImage})`,
       }"
+      v-if="displayedGame.backgroundImage"
     ></div>
     <h1>
       {{ displayedGame.name }}
@@ -23,9 +24,9 @@
         <p v-html="displayedGame.description"></p>
       </div>
       <div class="column-2">
-        <div v-if="displayedGame.clip">
+        <div v-if="displayedGame.video">
           <youtube
-            :video-id="displayedGame.clip.video"
+            :video-id="displayedGame.video"
             player-width="100%"
           ></youtube>
         </div>
@@ -34,6 +35,7 @@
           v-bind:genres="genres"
           v-bind:developers="developers"
           v-bind:website="displayedGame.website"
+          v-bind:metacritic="displayedGame.metacritic"
         />
       </div>
     </div>
@@ -53,6 +55,42 @@ import request from "superagent";
 import GameMeta from "./GameMeta.vue";
 import RecommandationsList from "./RecommandationsList.vue";
 
+const API_KEY = process.env.VUE_APP_API_KEY;
+
+type Game = {
+  name: string;
+  description: string;
+  backgroundImage: string;
+  website: string;
+  platforms: Platform[];
+  genres: Genre[];
+  developers: Developer[];
+  video: string | null;
+  metacritic: number;
+};
+
+type Platform = {
+  id: number;
+  name: string;
+  slug: string;
+};
+
+type Genre = {
+  games_count: number;
+  id: number;
+  name: string;
+  background_image: string;
+  slug: string;
+};
+
+type Developer = {
+  games_count: number;
+  id: number;
+  name: string;
+  background_image: string;
+  slug: string;
+};
+
 @Component({
   components: {
     GameMeta,
@@ -65,20 +103,21 @@ export default class GameDetails extends Vue {
 
   @Emit("update-key")
   changeComponentKey() {
-    return null;
+    return true;
   }
 
   loading = false;
   error = null;
-  displayedGame = {
+  displayedGame: Game = {
     name: "",
     description: "",
     platforms: [],
     genres: [],
     developers: [],
     backgroundImage: "",
-    clip: null,
+    video: null,
     website: "",
+    metacritic: 0,
   };
 
   get platforms(): string[] {
@@ -96,83 +135,54 @@ export default class GameDetails extends Vue {
       .map((developer: any) => developer.name);
   }
 
-  async fetchGames() {
+  async fetchGame(): Promise<Game | undefined> {
     try {
       this.loading = true;
+      const randomNumber = Math.floor(Math.random() * 10000 + 1);
 
-      if (this.random) {
-        const randomNumber = Math.floor(Math.random() * 10000 + 1);
+      const response = this.random
+        ? await request
+            .get(
+              `https://rawg-video-games-database.p.rapidapi.com/games/${randomNumber}`
+            )
+            .set("x-rapidapi-host", "rawg-video-games-database.p.rapidapi.com")
+            .set("x-rapidapi-key", `${API_KEY}`)
+        : await request
+            .get(
+              `https://rawg-video-games-database.p.rapidapi.com/games/${this.gameId}`
+            )
+            .set("x-rapidapi-host", "rawg-video-games-database.p.rapidapi.com")
+            .set("x-rapidapi-key", `${API_KEY}`);
 
-        const response = await request
-          .get(
-            `https://rawg-video-games-database.p.rapidapi.com/games/${randomNumber}`
-          )
-          .set("x-rapidapi-host", "rawg-video-games-database.p.rapidapi.com")
-          .set(
-            "x-rapidapi-key",
-            "58fc62e76dmsh80ce19cd8cbea27p16bd17jsnbbc7c11d51dc"
-          );
+      // if there is no game at this id, restart the component to refetch a game
+      if (response.body.redirect === true) this.changeComponentKey();
 
-        const {
-          description,
-          name,
-          platforms,
-          genres,
-          developers,
-          clip,
-          website,
-        } = response.body;
+      const {
+        description,
+        name,
+        platforms,
+        genres,
+        developers,
+        website,
+        metacritic,
+      } = response.body;
 
-        const backgroundImage = response.body.background_image;
+      const backgroundImage = response.body.background_image;
+      const video = response.body.clip ? response.body.clip.video : null;
 
-        this.displayedGame = {
-          description,
-          name,
-          platforms,
-          genres,
-          developers,
-          backgroundImage,
-          clip,
-          website,
-        };
-        this.loading = false;
-        console.log("displayedGame ?", this.displayedGame);
-      } else {
-        const response = await request
-          .get(
-            `https://rawg-video-games-database.p.rapidapi.com/games/${this.gameId}`
-          )
-          .set("x-rapidapi-host", "rawg-video-games-database.p.rapidapi.com")
-          .set(
-            "x-rapidapi-key",
-            "58fc62e76dmsh80ce19cd8cbea27p16bd17jsnbbc7c11d51dc"
-          );
+      this.loading = false;
 
-        const {
-          description,
-          name,
-          platforms,
-          genres,
-          developers,
-          clip,
-          website,
-        } = response.body;
-
-        const backgroundImage = response.body.background_image;
-
-        this.displayedGame = {
-          description,
-          name,
-          platforms,
-          genres,
-          developers,
-          backgroundImage,
-          clip,
-          website,
-        };
-        this.loading = false;
-        console.log("displayedGame ?", this.displayedGame);
-      }
+      return (this.displayedGame = {
+        description,
+        name,
+        platforms,
+        genres,
+        developers,
+        backgroundImage,
+        video,
+        website,
+        metacritic,
+      });
     } catch (e) {
       this.error = e.toString();
       console.error(e);
@@ -180,12 +190,16 @@ export default class GameDetails extends Vue {
   }
 
   mounted() {
-    this.fetchGames();
+    this.fetchGame();
   }
 }
 </script>
 
 <style scoped lang="scss">
+.game-details {
+  margin-top: 80px;
+}
+
 .image-header {
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -193,6 +207,10 @@ export default class GameDetails extends Vue {
   height: 500px;
   background-position: center;
   background-size: cover;
+}
+
+.fas {
+  cursor: pointer;
 }
 
 .game-details h1 {
