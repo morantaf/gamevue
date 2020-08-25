@@ -86,7 +86,6 @@ export default class GameCard extends Vue {
 .game-card {
   width: 29%;
   margin: 2% 2% 2% 2%;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.25);
   border-radius: 5%;
   transition-duration: 0.5s;
   background-color: #576175;
