@@ -1,31 +1,112 @@
 <template>
-  <div>
-    <h1>{{ msg }}</h1>
+  <div class="footer">
+    <div class="informations">
+      <div class="sitemap">
+        <h3>Sitemap</h3>
+        <ul>
+          <li v-for="(route, index) in routerList" v-bind:key="index">
+            {{ route.name }}
+          </li>
+        </ul>
+      </div>
+      <div class="contact">
+        <h3>Contact</h3>
+        <ul>
+          <li>
+            <i class="fas fa-map-marker-alt footer-icon"></i>Langswater 812,
+            1069 EH Amsterdam
+          </li>
+          <li><i class="fas fa-envelope footer-icon"></i>support@email.com</li>
+          <li><i class="fa fa-phone footer-icon"></i>0687654321</li>
+        </ul>
+      </div>
+    </div>
+    <p>Made by Moranta Fall</p>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
+import { RouteConfig } from "vue-router";
 
 @Component
 export default class Footer extends Vue {
-  msg = "Footer";
+  routerList: RouteConfig[] | undefined = [];
+
+  getRoutesList(
+    routes: RouteConfig[] | undefined,
+    pre: string
+  ): RouteConfig[] | undefined {
+    console.log(routes);
+    return routes.map((route: RouteConfig) => {
+      const path = `${pre}${route.path}`;
+      const name = route.name;
+      return { path, name };
+    }, []);
+  }
+
+  mounted() {
+    this.routerList = this.getRoutesList(
+      this.$router.options.routes,
+      "https://localhost:8080"
+    );
+  }
 }
 </script>
 
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
+.footer {
+  width: 100%;
+  background-color: #2b303b;
+  border-top: 1px solid #dae4eb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 90px;
 }
-ul {
-  list-style-type: none;
+
+.informations {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.footer ul {
   padding: 0;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+.sitemap {
+  margin-left: 60px;
 }
-a {
-  color: #42b983;
+
+.contact {
+  margin-right: 60px;
+}
+
+.footer li {
+  text-align: left;
+  list-style: none;
+  margin-bottom: 5px;
+}
+
+.footer-icon {
+  margin-right: 20px;
+}
+
+@media screen and (max-width: 500px) {
+  .informations {
+    flex-direction: column;
+  }
+  .sitemap {
+    margin-left: 0;
+    width: 90%;
+  }
+
+  .contact {
+    margin-right: 20px;
+  }
 }
 </style>
