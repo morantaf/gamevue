@@ -65,8 +65,8 @@ const API_KEY = process.env.VUE_APP_API_KEY;
 type Game = {
   id: number;
   name: string;
-  backgroundImage: string;
-  platforms: Platform[];
+  background_image: string;
+  parent_platforms: Platform[];
   rating: number;
   genres: Genre[];
 };
@@ -149,7 +149,7 @@ export default class GamesList extends Vue {
 
       this.loading = false;
 
-      return receivedData.results.map((game: any) => {
+      return receivedData.results.map((game: Game) => {
         return {
           id: game.id,
           name: game.name,
@@ -165,14 +165,14 @@ export default class GamesList extends Vue {
     }
   }
 
-  reduceGamesList(list: Game[] | undefined): Game[] {
+  reduceGamesList(list: Game[]): Game[] {
     return list.slice(0, 10);
   }
 
-  filterByCategory(list: Game[] | undefined): Game[] {
-    return list.filter((game: any) => {
+  filterByCategory(list: Game[]): Game[] {
+    return list.filter((game: Game) => {
       const genresList = game.genres;
-      const formattedGenreList = genresList.map((genre: any) =>
+      const formattedGenreList = genresList.map((genre: Genre) =>
         genre.name.toLowerCase()
       );
 
@@ -186,9 +186,11 @@ export default class GamesList extends Vue {
     try {
       const receivedGamesList = await this.fetchGames();
 
-      this.gamesList = this.category
-        ? this.filterByCategory(receivedGamesList)
-        : this.reduceGamesList(receivedGamesList);
+      if (receivedGamesList) {
+        this.gamesList = this.category
+          ? this.filterByCategory(receivedGamesList)
+          : this.reduceGamesList(receivedGamesList);
+      }
     } catch (e) {
       console.log(e);
     }
