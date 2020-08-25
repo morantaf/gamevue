@@ -56,7 +56,6 @@ export default class Footer extends Vue {
       this.$router.options.routes,
       "https://localhost:8080"
     );
-    console.log(this.routerList);
   }
 }
 </script>
