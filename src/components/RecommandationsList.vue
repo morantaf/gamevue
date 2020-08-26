@@ -32,14 +32,23 @@ const API_KEY = process.env.VUE_APP_API_KEY;
 type Game = {
   id: number;
   name: string;
-  backgroundImage: string;
-  platforms: Platform[];
+  background_image: string;
+  parent_platforms: Platform[];
   rating: number;
+  genres: Genre[];
 };
 
 type Platform = {
   id: number;
   name: string;
+  slug: string;
+};
+
+type Genre = {
+  games_count: number;
+  id: number;
+  name: string;
+  background_image: string;
   slug: string;
 };
 
@@ -74,19 +83,21 @@ export default class GamesList extends Vue {
       this.loading = false;
 
       const gamesListReceived = dataReceived.results;
-      const filteredGamesList = gamesListReceived.filter((game: any) => {
+      const filteredGamesList = gamesListReceived.filter((game: Game) => {
         if (game.name === this.displayedGameName) {
           return false;
         } else {
           const genresList = game.genres;
-          const formattedGenreList = genresList.map((genre: any) => genre.name);
-          const intersectionArray = formattedGenreList.filter((genre: any) =>
+          const formattedGenreList = genresList.map(
+            (genre: Genre) => genre.name
+          );
+          const intersectionArray = formattedGenreList.filter((genre: string) =>
             this.displayedGameGenres.includes(genre)
           );
           if (intersectionArray.length !== 0) return true;
         }
       });
-      return (this.gamesList = filteredGamesList.map((game: any) => {
+      return (this.gamesList = filteredGamesList.map((game: Game) => {
         return {
           id: game.id,
           name: game.name,
