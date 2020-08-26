@@ -27,6 +27,8 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import * as request from "superagent";
 import GameCard from "./GameCard.vue";
 
+const API_KEY = process.env.VUE_APP_API_KEY;
+
 type Game = {
   id: number;
   name: string;
@@ -65,10 +67,8 @@ export default class GamesList extends Vue {
       const response = await request
         .get(`https://rawg-video-games-database.p.rapidapi.com/games`)
         .set("x-rapidapi-host", "rawg-video-games-database.p.rapidapi.com")
-        .set(
-          "x-rapidapi-key",
-          "58fc62e76dmsh80ce19cd8cbea27p16bd17jsnbbc7c11d51dc"
-        );
+        .set("x-rapidapi-key", `${API_KEY}`);
+
       const dataReceived = response.body;
 
       this.loading = false;
